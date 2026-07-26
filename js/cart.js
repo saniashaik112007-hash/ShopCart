@@ -199,11 +199,22 @@ function renderCartPage() {
   if (cartContainer) cartContainer.style.display = 'flex';
   if (cartSummary) cartSummary.style.display = 'block';
 
+  // Helper to render cart item image (supports emoji or URL)
+  function renderCartItemImage(image) {
+    if (!image) return '<div style="font-size: 60px;">📦</div>';
+    const isEmoji = /^[🎧⌚🔊🔌🧥👟👕👛🧴💄💡🌀🫖📚📖📕🧘🏋️👔👗👠👑🎒👜👓🎮📱💻🖥️⌨️🖱️📷🎥📽️🎞️📺📻🔋🔅🛒🛍️]/.test(image) || /^[\u{1F000}-\u{1FFFF}]/u.test(image);
+    if (isEmoji) {
+      return `<div style="font-size: 60px; text-align: center;">${image}</div>`;
+    } else {
+      return `<img src="${image}" alt="Product" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div style="font-size: 60px; display: none;">📦</div>`;
+    }
+  }
+
   // Render cart items
   cartContainer.innerHTML = cart.map(item => `
     <div class="cart-item" data-id="${item.id}">
       <div class="cart-item-image">
-        <div style="font-size: 60px;">${item.image || '📦'}</div>
+        ${renderCartItemImage(item.image)}
       </div>
       <div class="cart-item-info">
         <h3>${item.name}</h3>
@@ -280,11 +291,22 @@ function renderCheckoutSummary() {
   const shipping = subtotal > 500 ? 0 : 49;
   const total = subtotal + shipping;
 
+  // Helper to render checkout item image
+  function renderCheckoutImage(image) {
+    if (!image) return '<div style="font-size: 40px; width: 60px; text-align: center;">📦</div>';
+    const isEmoji = /^[🎧⌚🔊🔌🧥👟👕👛🧴💄💡🌀🫖📚📖📕🧘🏋️👔👗👠👑🎒👜👓🎮📱💻🖥️⌨️🖱️📷🎥📽️🎞️📺📻🔋🔅🛒🛍️]/.test(image) || /^[\u{1F000}-\u{1FFFF}]/u.test(image);
+    if (isEmoji) {
+      return `<div style="font-size: 40px; width: 60px; text-align: center;">${image}</div>`;
+    } else {
+      return `<img src="${image}" alt="Product" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div style="font-size: 40px; display: none;">📦</div>`;
+    }
+  }
+
   summaryContainer.innerHTML = `
     <h3>Order Items</h3>
     ${cart.map(item => `
       <div class="order-item">
-        <div style="font-size: 40px; width: 60px; text-align: center;">${item.image || '📦'}</div>
+        ${renderCheckoutImage(item.image)}
         <div class="order-item-info">
           <h4>${item.name}</h4>
           <p>Qty: ${item.quantity}</p>

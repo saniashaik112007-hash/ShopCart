@@ -6,24 +6,95 @@
 
 let products = [];
 
+// Fallback products when API is unavailable
+const FALLBACK_PRODUCTS = [
+  // Electronics
+  { _id: "1", name: "Wireless Bluetooth Headphones", category: "Electronics", price: 2499, oldPrice: 4999, discount: 50, rating: 4.5, reviews: 2342, image: "🎧", description: "Premium wireless headphones with active noise cancellation, 30-hour battery life, and crystal clear sound quality." },
+  { _id: "2", name: "Smart Watch Pro Max", category: "Electronics", price: 3999, oldPrice: 7999, discount: 50, rating: 4.3, reviews: 1845, image: "⌚", description: "Advanced smartwatch with health monitoring, GPS tracking, waterproof design." },
+  { _id: "3", name: "Bluetooth Speaker Boom", category: "Electronics", price: 1499, oldPrice: 2999, discount: 50, rating: 4.6, reviews: 3120, image: "🔊", description: "Portable Bluetooth speaker with powerful bass, 12-hour playtime." },
+  { _id: "4", name: "USB-C Fast Charger 65W", category: "Electronics", price: 999, oldPrice: 1999, discount: 50, rating: 4.4, reviews: 5621, image: "🔌", description: "GaN fast charger with 65W power delivery." },
+  // Fashion
+  { _id: "5", name: "Classic Denim Jacket", category: "Fashion", price: 1899, oldPrice: 3799, discount: 50, rating: 4.2, reviews: 1560, image: "🧥", description: "Timeless denim jacket crafted from premium cotton." },
+  { _id: "6", name: "Running Shoes Ultra", category: "Fashion", price: 2999, oldPrice: 5999, discount: 50, rating: 4.7, reviews: 4200, image: "👟", description: "Lightweight running shoes with responsive cushioning." },
+  { _id: "7", name: "Casual Cotton T-Shirt", category: "Fashion", price: 599, oldPrice: 1199, discount: 50, rating: 4.1, reviews: 8900, image: "👕", description: "Soft 100% organic cotton t-shirt." },
+  { _id: "8", name: "Leather Wallet Premium", category: "Fashion", price: 1299, oldPrice: 2599, discount: 50, rating: 4.5, reviews: 3450, image: "👛", description: "Handcrafted genuine leather wallet." },
+  // Beauty
+  { _id: "9", name: "Vitamin C Face Serum", category: "Beauty", price: 649, oldPrice: 1299, discount: 50, rating: 4.4, reviews: 6720, image: "🧴", description: "Brightening vitamin C serum with hyaluronic acid." },
+  { _id: "10", name: "Professional Makeup Kit", category: "Beauty", price: 2499, oldPrice: 4999, discount: 50, rating: 4.3, reviews: 2890, image: "💄", description: "Complete 48-color makeup palette." },
+  { _id: "11", name: "Organic Hair Oil", category: "Beauty", price: 449, oldPrice: 899, discount: 50, rating: 4.6, reviews: 12450, image: "🧴", description: "100% organic hair oil with coconut and argan." },
+  // Home Appliances
+  { _id: "12", name: "Smart LED Bulb WiFi", category: "Home Appliances", price: 799, oldPrice: 1599, discount: 50, rating: 4.3, reviews: 8900, image: "💡", description: "WiFi-enabled smart LED bulb with voice control." },
+  { _id: "13", name: "Air Purifier HEPA", category: "Home Appliances", price: 6999, oldPrice: 13999, discount: 50, rating: 4.5, reviews: 2340, image: "🌀", description: "HEPA air purifier removes 99.97% of pollutants." },
+  { _id: "14", name: "Electric Kettle 1.5L", category: "Home Appliances", price: 899, oldPrice: 1799, discount: 50, rating: 4.4, reviews: 15670, image: "🫖", description: "Stainless steel electric kettle with auto shut-off." },
+  // Books
+  { _id: "15", name: "JavaScript: The Good Parts", category: "Books", price: 499, oldPrice: 999, discount: 50, rating: 4.8, reviews: 4500, image: "📚", description: "Essential guide to JavaScript best practices." },
+  { _id: "16", name: "Atomic Habits", category: "Books", price: 399, oldPrice: 799, discount: 50, rating: 4.9, reviews: 28900, image: "📖", description: "Build Good Habits & Break Bad Ones by James Clear." },
+  { _id: "17", name: "The Alchemist", category: "Books", price: 299, oldPrice: 599, discount: 50, rating: 4.7, reviews: 34500, image: "📕", description: "Paulo Coelho's enchanting novel." },
+  // Sports
+  { _id: "18", name: "Yoga Mat Premium", category: "Sports", price: 999, oldPrice: 1999, discount: 50, rating: 4.5, reviews: 8900, image: "🧘", description: "Non-slip premium yoga mat." },
+  { _id: "19", name: "Dumbbell Set 20kg", category: "Sports", price: 3499, oldPrice: 6999, discount: 50, rating: 4.3, reviews: 4500, image: "🏋️", description: "Adjustable dumbbell set with storage stand." },
+  { _id: "20", name: "Smart Fitness Band", category: "Sports", price: 1999, oldPrice: 3999, discount: 50, rating: 4.4, reviews: 12300, image: "⌚", description: "Fitness tracker with heart rate monitor." }
+];
+
+// Helper: render product image (supports emoji or URL)
+function renderProductImage(image, fontSize = 80) {
+  if (!image) return `<div style="font-size: ${fontSize}px;">📦</div>`;
+  // Check if it's an emoji (single Unicode character or emoji sequence)
+  const isEmoji = /^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)$/u.test(image.trim()) || 
+                  /^[\u{1F000}-\u{1FFFF}]/u.test(image) ||
+                  /^[\u{2600}-\u{27BF}]/u.test(image) ||
+                  /^[\u{2702}-\u{27B0}]/u.test(image) ||
+                  /^[🎧⌚🔊🔌🧥👟👕👛🧴💄💡🌀🫖📚📖📕🧘🏋️👔👗👠👑🎒👜👓🎮📱💻🖥️⌨️🖱️📷🎥📽️🎞️📺📻🔋🔅🛒🛍️]/.test(image);
+  
+  if (isEmoji) {
+    return `<div style="font-size: ${fontSize}px; text-align: center;">${image}</div>`;
+  } else {
+    // It's a URL path - render as <img>
+    return `<img src="${image}" alt="Product" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div style="font-size: ${fontSize}px; display: none;">📦</div>`;
+  }
+}
+
 // Load products from backend API
 async function loadProducts() {
   try {
+    // Check if getProductsAPI is defined (api.js loaded correctly)
+    if (typeof getProductsAPI === 'undefined') {
+      console.warn('getProductsAPI is not defined - using fallback products');
+      products = [...FALLBACK_PRODUCTS];
+      reinitializePage();
+      return;
+    }
+    
     const data = await getProductsAPI();
     products = data.products || [];
     
     // If no products from API, seed them
     if (products.length === 0) {
-      await fetch(`${API_BASE_URL}/products/seed`, { method: 'POST' });
-      const retryData = await getProductsAPI();
-      products = retryData.products || [];
+      try {
+        // The seed route is GET /api/products/seed
+        const seedRes = await fetch(`${API_BASE_URL}/products/seed`);
+        if (seedRes.ok) {
+          const retryData = await getProductsAPI();
+          products = retryData.products || [];
+        }
+      } catch (seedErr) {
+        console.warn('Seed failed, using fallback:', seedErr.message);
+      }
+    }
+    
+    // If still no products, use fallback
+    if (products.length === 0) {
+      products = [...FALLBACK_PRODUCTS];
     }
     
     // Re-render after products load
     reinitializePage();
   } catch (error) {
-    console.error('Failed to load products:', error);
-    // Don't show toast on initial load errors
+    console.error('Failed to load products from API:', error);
+    // Use fallback products
+    products = [...FALLBACK_PRODUCTS];
+    reinitializePage();
+    console.log('Using fallback products');
   }
 }
 
@@ -57,7 +128,7 @@ function renderProducts(productsToRender, containerId = 'productsGrid') {
     return `
       <div class="product-card" data-category="${product.category}" data-price="${product.price}">
         <div class="product-image">
-          <div style="font-size: 80px;">${product.image}</div>
+          ${renderProductImage(product.image, 80)}
           <span class="product-badge">${product.discount}% OFF</span>
           <span class="product-wishlist" onclick="event.stopPropagation()">♡</span>
         </div>
@@ -153,12 +224,12 @@ function loadProductDetails() {
     <div class="product-details">
       <div class="product-gallery">
         <div class="main-image">
-          <div style="font-size: 150px;">${product.image}</div>
+          ${renderProductImage(product.image, 150)}
         </div>
         <div class="thumbnails">
-          <div style="width:70px;height:70px;background:var(--gradient-card);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:30px;border:2px solid var(--primary);">${product.image}</div>
-          <div style="width:70px;height:70px;background:var(--gradient-card);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:30px;">${product.image}</div>
-          <div style="width:70px;height:70px;background:var(--gradient-card);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:30px;">${product.image}</div>
+          <div style="width:70px;height:70px;background:var(--gradient-card);border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid var(--primary);">${renderProductImage(product.image, 30)}</div>
+          <div style="width:70px;height:70px;background:var(--gradient-card);border-radius:8px;display:flex;align-items:center;justify-content:center;">${renderProductImage(product.image, 30)}</div>
+          <div style="width:70px;height:70px;background:var(--gradient-card);border-radius:8px;display:flex;align-items:center;justify-content:center;">${renderProductImage(product.image, 30)}</div>
         </div>
       </div>
       <div class="product-info">
@@ -219,13 +290,13 @@ function changeQty(delta) {
 
 function addToCartFromDetails() {
   const params = new URLSearchParams(window.location.search);
-  const productId = parseInt(params.get('id'));
-  const product = products.find(p => p.id === productId);
+  const productId = params.get('id');
+  const product = products.find(p => p._id === productId);
   const qty = parseInt(document.getElementById('qtyInput')?.value || 1);
   
   if (product) {
     addToCart({
-      id: product.id,
+      id: product._id,
       name: product.name,
       price: product.price,
       image: product.image,
