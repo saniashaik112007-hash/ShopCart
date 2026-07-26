@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - ShopCart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .payment-description {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    .place-order-btn {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  <div class="bg-circles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ===== NAVBAR (Clean - Minimal) ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo">ShopCart</span>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="products.html" class="nav-link">📦 Products</a>
+        <a href="cart.html" class="nav-link">🛒 Cart <span class="badge" id="cartBadge">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== CHECKOUT PAGE ===== -->
+  <section class="checkout-page">
+    <div class="container">
+      <h1>📋 Checkout</h1>
+
+      <div class="checkout-layout">
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+          <!-- Shipping Information -->
+          <div class="form-section">
+            <h3><span class="step">1</span> Shipping Information</h3>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea id="checkoutAddress" placeholder="Enter your delivery address" autocomplete="street-address"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" id="checkoutCity" placeholder="City" autocomplete="address-level2">
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <select id="checkoutState" title="Select your state">
+                  <option value="">Select State</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="West Bengal">West Bengal</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" id="checkoutPincode" placeholder="6-digit pincode" maxlength="6" autocomplete="postal-code">
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="form-section">
+            <h3><span class="step">2</span> Payment Method</h3>
+            <div class="payment-options">
+              <label class="payment-option selected">
+                <input type="radio" name="payment" value="Cash on Delivery" checked>
+                <span class="pay-icon">💵</span>
+                <div>
+                  <strong>Cash on Delivery</strong>
+                  <p class="payment-description">Pay when you receive</p>
+                </div>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="UPI">
+                <span class="pay-icon">📱</span>
+                <div>
+                  <strong>UPI</strong>
+                  <p class="payment-description">Google Pay, PhonePe, Paytm</p>
+                </div>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="Card">
+                <span class="pay-icon">💳</span>
+                <div>
+                  <strong>Card Payment</strong>
+                  <p class="payment-description">Credit / Debit cards</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" id="placeOrderBtn">
+            ✅ Place Order
+          </button>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary-checkout" id="checkoutSummary">
+          <!-- Summary rendered by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>🛍️ ShopCart</h3>
+          <p>Your premium shopping destination for fashion, electronics, beauty, home appliances, books, sports, and more. We bring the best products at the best prices.</p>
+          <div class="footer-social">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="Instagram">📸</a>
+            <a href="#" title="YouTube">▶️</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="profile.html">My Account</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>📍 123 Shopping Street, Mumbai</li>
+            <li>📞 +91 98765 43210</li>
+            <li>✉️ support@shopcart.com</li>
+            <li>🕐 Mon - Sat: 9 AM - 9 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 ShopCart. All rights reserved. | Made with ❤️ for shoppers
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
+

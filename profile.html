@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - ShopCart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Additional external stylesheet for profile-specific styles -->
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  <div class="bg-circles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo">ShopCart</span>
+      </div>
+
+      <div class="search-bar">
+        <input type="text" placeholder="Search products..." onkeypress="if(event.key==='Enter') window.location.href='products.html'">
+        <button onclick="window.location.href='products.html'">🔍</button>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="products.html" class="nav-link">📦 Products</a>
+        <a href="cart.html" class="nav-link">🛒 Cart <span class="badge" id="cartBadge">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== PROFILE PAGE ===== -->
+  <section class="profile-page">
+    <div class="container">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">U</div>
+        <div class="profile-info">
+          <h2 id="profileAvatarName">User</h2>
+          <p id="profileEmail">user@example.com</p>
+          <a href="products.html" class="btn btn-primary btn-sm continue-shopping">🛍️ Continue Shopping</a>
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <!-- Profile Sidebar -->
+        <div class="profile-sidebar">
+          <h3>👤 Account Details</h3>
+          <div class="profile-detail">
+            <label>Full Name</label>
+            <span id="profileName">-</span>
+          </div>
+          <div class="profile-detail">
+            <label>Email</label>
+            <span id="profileEmail2">-</span>
+          </div>
+          <div class="profile-detail">
+            <label>Phone</label>
+            <span id="profilePhone">-</span>
+          </div>
+          <div class="profile-detail">
+            <label>Member Since</label>
+            <span id="profileJoined">-</span>
+          </div>
+          <div class="profile-sidebar-action">
+            <button class="btn btn-danger btn-block" id="logoutBtn">🚪 Logout</button>
+          </div>
+        </div>
+
+        <!-- Profile Orders -->
+        <div class="profile-orders">
+          <h3>📦 Order History</h3>
+          <div id="ordersList">
+            <!-- Orders rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>🛍️ ShopCart</h3>
+          <p>Your premium shopping destination for fashion, electronics, beauty, home appliances, books, sports, and more. We bring the best products at the best prices.</p>
+          <div class="footer-social">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="Instagram">📸</a>
+            <a href="#" title="YouTube">▶️</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="profile.html">My Account</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Categories</h3>
+          <ul>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+            <li><a href="products.html?category=Beauty">Beauty</a></li>
+            <li><a href="products.html?category=Home Appliances">Home Appliances</a></li>
+            <li><a href="products.html?category=Books">Books</a></li>
+            <li><a href="products.html?category=Sports">Sports</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>📍 123 Shopping Street, Mumbai</li>
+            <li>📞 +91 98765 43210</li>
+            <li>✉️ support@shopcart.com</li>
+            <li>🕐 Mon - Sat: 9 AM - 9 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 ShopCart. All rights reserved. | Made with ❤️ for shoppers
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
+

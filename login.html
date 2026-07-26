@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - ShopCart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- External stylesheet for page-specific styles (moved from inline) -->
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  <div class="bg-circles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo">ShopCart</span>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="products.html" class="nav-link">📦 Products</a>
+        <a href="login.html" class="nav-link">🔑 Login</a>
+        <a href="signup.html" class="nav-link">📝 Sign Up</a>
+        <a href="cart.html" class="nav-link">🛒 Cart <span class="badge" id="cartBadge">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== LOGIN PAGE ===== -->
+  <div class="auth-page">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-icon">🔐</div>
+          <h2>Welcome Back!</h2>
+          <p>Sign in to your ShopCart account</p>
+        </div>
+
+        <form class="auth-form" id="loginForm" autocomplete="off">
+          <div class="form-group">
+            <span class="input-icon">📧</span>
+            <input type="email" id="loginEmail" placeholder="Enter your email" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+            <button type="button" class="password-toggle" id="togglePassword">👁️</button>
+          </div>
+
+          <div class="forgot-password">
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            🔑 Sign In
+          </button>
+        </form>
+
+        <div class="auth-divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="social-auth">
+          <button class="btn btn-secondary btn-block btn-sm btn-google">📧 Google</button>
+          <button class="btn btn-secondary btn-block btn-sm btn-facebook">📘 Facebook</button>
+        </div>
+
+        <div class="auth-footer">
+          Don't have an account? <a href="signup.html">Create Account →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
+
